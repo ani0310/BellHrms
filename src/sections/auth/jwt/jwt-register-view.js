@@ -34,10 +34,16 @@ export default function JwtRegisterView() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const searchParams = useSearchParams();
+  const [inputValue, setInputValue] = useState('');
 
   const returnTo = searchParams.get('returnTo');
 
+
   const password = useBoolean();
+  const [formValue, setFormValue] = useState('')
+  const [emailValue, setEmailValue] = useState('')
+  const [passwordValue, setPasswordValue] = useState('')
+
 
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
@@ -45,6 +51,31 @@ export default function JwtRegisterView() {
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     password: Yup.string().required('Password is required'),
   });
+
+
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setInputValue(value);
+    console.log(value);
+    // Display the input value in the console
+  };
+  const handleChanges = (e) => {
+    const { value } = e.target;
+    setFormValue(value);
+    console.log(value);
+  }
+  const handleChang = (e) => {
+    const { value } = e.target;
+    setEmailValue(value);
+    console.log(value);
+  }
+  const handleChangess = (e) => {
+    const { value } = e.target;
+    setPasswordValue(value);
+    console.log(value);
+  }
+
 
   const defaultValues = {
     firstName: '',
@@ -63,16 +94,29 @@ export default function JwtRegisterView() {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
+  const [frmvalue, setFrmValue] = useState('');
+
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register?.(data.email, data.password, data.firstName, data.lastName);
+      // console.log(data);
 
-      router.push(returnTo || PATH_AFTER_LOGIN);
-    } catch (error) {
-      console.error(error);
-      reset();
-      setErrorMsg(typeof error === 'string' ? error : error.message);
+      const obj =  ({
+        "firstName":data?.firstName,
+        "lastName":data?.lastName,
+        "email": data?.email,
+        "password":data?.password,
+      })
+      console.log(typeof(obj),'addEEEss',Object.keys(obj));
+
+      // await register?.(data.email, data.password, data.firstName, data.lastName);
+
+      // router.push(returnTo || PATH_AFTER_LOGIN);
+    }
+    catch (error) {
+      // console.error(error);
+      // reset();
+      // setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
 
@@ -118,8 +162,8 @@ export default function JwtRegisterView() {
         {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="firstName" label="First name" />
-          <RHFTextField name="lastName" label="Last name" />
+          <RHFTextField name="firstName" label="First name"         />
+          <RHFTextField name="lastName" label="Last name"   />
         </Stack>
 
         <RHFTextField name="email" label="Email address" />
@@ -127,6 +171,12 @@ export default function JwtRegisterView() {
         <RHFTextField
           name="password"
           label="Password"
+
+
+//           onChange={(e) => { console.log(e.target.value); setFormValue({ ...formValue, pass: e.target.value })}}
+
+// value = {password}
+
           type={password.value ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
