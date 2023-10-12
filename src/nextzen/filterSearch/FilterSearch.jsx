@@ -59,9 +59,28 @@ const handleOptions = () =>{
   if (searchText) {
     newFilterData.search = searchText;
   }
+  const hasFilterCriteria = Object.keys(newFilterData).length > 0;
 
-  // Call handleFilters with the combined filterData
-  handleFilters(newFilterData);
+  if (hasFilterCriteria) {
+    // Call handleFilters with the combined filterData
+    handleFilters(newFilterData);
+  } else {
+    // Handle the case when no filter criteria are provided
+    // You can decide what to do in this case, such as showing a message or doing nothing.
+    // For example, you can log a message to the console.
+    alert('No filter criteria provided');
+  }
+}
+
+const handleFilterCancel = () =>{
+    setSearchText('');
+    SetFilterData([]);
+    setDates({
+        start_date: null,
+        end_date: null,
+    });
+    SetSelectedValues('');
+    handleFilters(filterData)
 }
     return (
         <Grid container spacing={1} style={{margin:'1rem'}}>
@@ -70,6 +89,7 @@ const handleOptions = () =>{
          <TextField
          sx={{width:"200px"}}
             placeholder="Search..."
+            defaultValue={searchText}
             onChange = {(e)=>setSearchText(e.target.value)}
             InputProps={{
               startAdornment: (
@@ -87,8 +107,8 @@ const handleOptions = () =>{
                     <DatePicker
                      
                       placeholder="Start Date"
-                    //   value={dates?.start_date}
-                    //   defaultValue={dayjs(new Date())}
+                      value={dates?.start_date}
+                      defaultValue={dates?.start_date}
                       onChange={(newValue) => {
                         setDates((prev) => ({
                           ...prev,
@@ -103,8 +123,8 @@ const handleOptions = () =>{
           <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       placeholder="End Date"
-                    //   value={dates?.end_date}
-                    //   defaultValue={dayjs(new Date())}
+                      value={dates?.end_date}
+                      defaultValue={dates?.end_date}
                       onChange={(newValue) => {
                         setDates((prev) => ({
                           ...prev,
@@ -120,6 +140,10 @@ const handleOptions = () =>{
               disablePortal
               id="combo-box-demo"
               options={filterOptions[0]?.options}
+              value={selectedValues[filterOptions[0]?.fieldName] || null}
+              onChange={(event, newValue) => {
+                  handleSelectedValues(filterOptions[0]?.fieldName, newValue);
+              }}
               sx={{zIndex: 9999}}
                 renderInput={(params) => <TextField {...params} label={filterOptions[0]?.fieldName} sx={{width:"200px"}}/>}
             />
@@ -143,6 +167,7 @@ const handleOptions = () =>{
            ))}
            </>}
           <Button onClick={handleOptions}>Apply</Button>
+          <Button onClick={handleFilterCancel}>Cancel</Button>
     </Grid>
     )
 }
