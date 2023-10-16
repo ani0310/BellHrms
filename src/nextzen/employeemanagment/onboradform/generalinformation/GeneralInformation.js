@@ -303,11 +303,11 @@ export default function GeneralInformation({ currentUser }) {
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFTextField name="first_name" label="First Name " />
-                <RHFTextField name="middle_name" label="Middle Name " />
-                <RHFTextField name="last_name" label="Last Name " />
-                <RHFTextField name="email_id" label="Email Id " />
-                <RHFTextField name="contact_number" label="Contact Number " />
+                <RHFTextField name="first_name" label="First Name" />
+                <RHFTextField name="middle_name" label="Middle Name" />
+                <RHFTextField name="last_name" label="Last Name" />
+                <RHFTextField name="email_id" label="Email Id" />
+                <RHFTextField name="contact_number" label="Contact Number" />
                 <RHFTextField name="emergency_contact_number" label="Emergency COntact Number " />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DatePicker']}>

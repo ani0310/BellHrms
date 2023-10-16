@@ -59,18 +59,18 @@ export default function VerifyOtp() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-        const apiUrl='http://localhost:3001/verifyotp';
-        const otp=data.code;
-        const Url=`${apiUrl}?otp=${otp}`
-        const response = await axios.get(Url);
-        console.log(response?.status)
-        if(response?.status===200){
-            console.log('sucess')
-            router.push(paths.auth.jwt.createpassword);
-          }
-        
-    //   await confirmRegister?.(data.email, data.code);
-    //   router.push(paths.auth.jwt.login);
+      const apiUrl = 'http://localhost:3001/verifyotp';
+      const otp = data.code;
+      const Url = `${apiUrl}?otp=${otp}`;
+      const response = await axios.get(Url);
+      console.log(response?.status);
+      if (response?.status === 200) {
+        console.log('sucess');
+        router.push(paths.auth.jwt.createpassword);
+      }
+
+      //   await confirmRegister?.(data.email, data.code);
+      //   router.push(paths.auth.jwt.login);
     } catch (error) {
       console.error(error);
     }
@@ -147,8 +147,8 @@ export default function VerifyOtp() {
         <Typography variant="h3">Please check your email!</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          We have emailed a 6-digit confirmation code to {email}, please enter the code in below
-          box to verify your email.
+          We have emailed a 6-digit confirmation code to {email}, please enter the code in below box
+          to verify your email.
         </Typography>
       </Stack>
     </>

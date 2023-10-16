@@ -1,8 +1,8 @@
 {
-  "name": "Nextzen",
-  "author": "Infobell It",
+  "name": "Beyond Basic",
+  "author": "Anil",
   "version": "0.0.1",
-  "description": "Next.Zen TO SPACE",
+  "description": "Beyond Basic TO SPACE",
   "private": true,
   "proxy": "https://api-dev-minimal-v510.vercel.app",
   "scripts": {

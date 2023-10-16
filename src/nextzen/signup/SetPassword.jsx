@@ -74,15 +74,14 @@ export default function AmplifyNewPasswordView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-
-      const payload ={
-        "jwt_token_string" : localStorage.getItem('jwt_access_token'),
-        "password":data.password
-    }
-    const response = await axios.post('http://localhost:3001/', payload);
-    console.log(response?.status)
-    if(response?.status===200){
-        console.log('sucess')
+      const payload = {
+        jwt_token_string: localStorage.getItem('jwt_access_token'),
+        password: data?.password,
+      };
+      const response = await axios.post('http://localhost:3001/', payload);
+      console.log(response?.status);
+      if (response?.status === 200) {
+        console.log('sucess');
         router.push(paths.auth.jwt.login);
       }
       // await newPassword?.(data.email, data.code, data.password);

@@ -75,31 +75,7 @@ const ReuseTableTwo = lazy(() => import('src/nextzen/Table/Reuseabletwo'));
 const SignupHome = lazy(() => import('src/nextzen/signup/SignupHome'));
 const OnBoardForm = lazy(() => import('src/nextzen/employeemanagment/onboradform/OnboardForm'));
 
-// claims------------------------
-const Claims = lazy(() => import('src/nextzen/Claims/Claims'));
-
-// IT Declaration------------------------
-const Itdeclaration = lazy(() => import('src/nextzen/ITDeclaration/Itdeclaration'));
-
-// Leave manangement------------------------
-const Leave = lazy(() => import('src/nextzen/LeaveManagement/Leave'));
-
-// Time Sheet manangement------------------------
-const TimeSheet = lazy(() => import('src/nextzen/TimeSheetManagement/Time'));
-
-// Payroll manangement------------------------
-const Payroll = lazy(() => import('src/nextzen/Payroll/Payroll'));
-
-const PaySchedule = lazy(()=> import('src/nextzen/Payroll/payschedule/PaySchedule'))
-
-const PayScheduleform = lazy(()=> import('src/nextzen/Payroll/payschedule/PayScheduleform'));
-
-// Monthly Deductions manangement------------------------
-const MonthlyDeductions = lazy(() => import('src/nextzen/MonthlyDeductions/Month'));
-
-// Appraisal manangement------------------------
-const Appraisal = lazy(() => import('src/nextzen/AppraisalManagement/Appraisal'));
-
+const UserProfileHome = lazy(() => import('src/beyondbasic/userprofile/UserProfileHome'));
 
 export const dashboardRoutes = [
   {
@@ -117,6 +93,7 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       { path: 'ecommerce', element: <OverviewEcommercePage /> },
+      { path: 'userprofile', element: <UserProfileHome /> },
       { path: 'signup', element: <SignupHome /> },
       { path: 'analytics', element: <OverviewAnalyticsPage /> },
       { path: 'banking', element: <OverviewBankingPage /> },
@@ -164,74 +141,6 @@ export const dashboardRoutes = [
         ],
       },
 
-      {
-        path: 'leave',
-        children: [
-          { element: <Leave />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-        
-          
-        ],
-      },
-      {
-        path: 'timesheet',
-        children: [
-          { element: <TimeSheet />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-        
-          
-        ],
-      },
-
-
-      {
-        path: 'claims',
-        children: [
-          { element: <Claims />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-          
-          
-        ],
-      },
-
-      {
-        path: 'payroll',
-        children: [
-          { element: <Payroll />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-          {path: 'payschedule',element:<PaySchedule/>},
-          {path:'payscheduleform',element:<PayScheduleform/>}
-          
-        ],
-      },
-      {
-        path: 'itdeclaration',
-        children: [
-          { element: <Itdeclaration />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-        
-          
-        ],
-      },
-      {
-        path: 'monthlydeductions',
-        children: [
-          { element: <MonthlyDeductions />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-        
-          
-        ],
-      },
-
-      {
-        path: 'appraisal',
-        children: [
-          { element: <Appraisal />, index: true },
-          // { path: 'profile', element: <UserProfilePage /> },
-        
-          
-        ],
-      },
       {
         path: 'product',
         children: [

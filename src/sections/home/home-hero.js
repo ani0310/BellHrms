@@ -207,7 +207,7 @@ export default function HomeHero() {
             repeat: Infinity,
           }}
         >
-          Next.Zen
+          Beyond Basic
         </StyledTextGradient>
       </m.div>
 
@@ -239,17 +239,6 @@ export default function HomeHero() {
       <m.div variants={varFade().in}>
         <Stack spacing={1.5} direction={{ xs: 'column-reverse', sm: 'row' }} sx={{ mb: 5 }}>
           <Stack alignItems="center" spacing={2}>
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.root}
-              color="inherit"
-              size="large"
-              variant="contained"
-              startIcon={<Iconify icon="eva:flash-fill" width={24} />}
-            >
-              Live Preview
-            </Button>
-
             {/* <Link
               color="inherit"
               variant="caption"
@@ -266,19 +255,6 @@ export default function HomeHero() {
               Get Free Version
             </Link> */}
           </Stack>
-
-          <Button
-            color="inherit"
-            size="large"
-            variant="outlined"
-            startIcon={<Iconify icon="eva:external-link-fill" width={24} />}
-            target="_blank"
-            rel="noopener"
-            href={paths.figma}
-            sx={{ borderColor: 'text.primary' }}
-          >
-            Get Started
-          </Button>
         </Stack>
       </m.div>
 

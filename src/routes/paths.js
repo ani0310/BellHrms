@@ -63,12 +63,12 @@ export const paths = {
       login: `${ROOTS.AUTH}/jwt/login`,
       register: `${ROOTS.AUTH}/jwt/register`,
       general: `${ROOTS.AUTH}/jwt/general`,
-      verifyotp:`${ROOTS.AUTH}/jwt/verifyotp`,
-      createpassword:`${ROOTS.AUTH}/jwt/createpassword`,
-      forgotpassword:`${ROOTS.AUTH}/jwt/forgotpassword`,
-      setpassword:`${ROOTS.AUTH}/jwt/setpassword`,
+      verifyotp: `${ROOTS.AUTH}/jwt/verifyotp`,
+      createpassword: `${ROOTS.AUTH}/jwt/createpassword`,
+      forgotpassword: `${ROOTS.AUTH}/jwt/forgotpassword`,
+      setpassword: `${ROOTS.AUTH}/jwt/setpassword`,
       otpverification: `${ROOTS.AUTH}/jwt/otpverification`,
-    },  
+    },
     firebase: {
       login: `${ROOTS.AUTH}/firebase/login`,
       verify: `${ROOTS.AUTH}/firebase/verify`,
@@ -97,6 +97,7 @@ export const paths = {
   },
   // DASHBOARD
   dashboard: {
+    userprofile: `${ROOTS.DASHBOARD}/userprofile`,
     root: ROOTS.DASHBOARD,
     mail: `${ROOTS.DASHBOARD}/mail`,
     chat: `${ROOTS.DASHBOARD}/chat`,
@@ -115,21 +116,20 @@ export const paths = {
       // signup: `${ROOTS.DASHBOARD}/signup`,
       general: `${ROOTS.DASHBOARD}/general`,
     },
-    table:{
+    table: {
       root: `${ROOTS.DASHBOARD}/table`,
       userneweditform: `${ROOTS.DASHBOARD}/table/userneweditform`,
-      
+
       edit: (id) => `${ROOTS.DASHBOARD}/table/${id}/edit`,
       demo: {
         edit: `${ROOTS.DASHBOARD}/table/${MOCK_ID}/edit`,
       },
-
     },
-    employee:{
+    employee: {
       root: `${ROOTS.DASHBOARD}/reusetabletwo`,
       userneweditform: `${ROOTS.DASHBOARD}/reusetabletwo/userneweditform`,
       onboardform: `${ROOTS.DASHBOARD}/reusetabletwo/onboardform`,
-      
+
       edit: (id) => `${ROOTS.DASHBOARD}/reusetabletwo/${id}/edit`,
       demo: {
         edit: `${ROOTS.DASHBOARD}/reusetabletwo/${MOCK_ID}/edit`,
@@ -149,47 +149,31 @@ export const paths = {
       },
     },
 
-
-    itdeclaration:{
+    itdeclaration: {
       root: `${ROOTS.DASHBOARD}/itdeclaration`,
-     
     },
-    leave:{
+    leave: {
       root: `${ROOTS.DASHBOARD}/leave`,
-     
     },
 
-
-    
-    timesheet:{
+    timesheet: {
       root: `${ROOTS.DASHBOARD}/timesheet`,
-     
     },
 
-
-
-    claims:{
+    claims: {
       root: `${ROOTS.DASHBOARD}/claims`,
-     
     },
 
-
-    payroll:{
+    payroll: {
       root: `${ROOTS.DASHBOARD}/payroll`,
-     
     },
-    monthlydeductions:{
+    monthlydeductions: {
       root: `${ROOTS.DASHBOARD}/monthlydeductions`,
-     
     },
 
-    appraisal:{
+    appraisal: {
       root: `${ROOTS.DASHBOARD}/appraisal`,
-     
     },
-
-
-
 
     // monthlydeductions
 

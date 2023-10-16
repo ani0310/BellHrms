@@ -77,64 +77,19 @@ export function useNavData() {
             title: t('Employee Management'),
             path: paths.dashboard.employee.root,
             icon: ICONS.user,
-            
           },
+
           {
-            title: t('Leave Management'),
-            path: paths.dashboard.leave.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Time Sheet Management'),
-            path: paths.dashboard.timesheet.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Claims'),
-            path: paths.dashboard.claims.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Payroll'),
-            path: paths.dashboard.payroll.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('IT Declaration'),
-            path: paths.dashboard.itdeclaration.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Monthly Additional Deductions'),
-            path: paths.dashboard.monthlydeductions.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Appraisal Management'),
-            path: paths.dashboard.appraisal.root,
-            icon: ICONS.user,
-            
-          },
-          {
-            title: t('Configuration'),
+            title: t('Learn With Beyond team'),
             path: paths.dashboard.employee.root,
             icon: ICONS.user,
             children: [
               { title: t('profile'), path: paths.dashboard.user.root },
               { title: t('cards'), path: paths.dashboard.user.cards },
               { title: t('list'), path: paths.dashboard.user.list },
-              
             ],
-            
           },
-          
-          
+
           // {
           //   title: t('ecommerce'),
           //   path: paths.dashboard.general.ecommerce,
