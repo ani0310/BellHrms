@@ -245,7 +245,7 @@ export default function EmployeeFilterSearch({filterSearch,filterData}){
         setDropdownStatus(value)
         const obj=dropdown;
         obj[field]=value;
-        setDropdown(obj);
+        setDropdown(obj)
       }
     
 
