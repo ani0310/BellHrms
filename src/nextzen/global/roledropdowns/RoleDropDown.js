@@ -63,23 +63,12 @@ const ApiHitLocations=()=>{
       data : obj
     
     };
-    
-     
-    
-    axios.request(config)
-    
-    .then((response) => {
-    
-      // console.log(JSON.stringify(response?.data));
-      setDepartmentOptions(response?.data?.data|| [])
-    
-    })
-    
-    .catch((error) => {
-    
-      console.log(error);
-    
-    });
+
+    const response = await axios.request(config);
+    return response.data.data || [];
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 
   const ApiHitDesgniation=(obj)=>{
