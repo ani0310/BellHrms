@@ -80,6 +80,7 @@ import MyShiftSearchFilter from './components/shiftmanagement/MyShiftSearchFilte
 import AssignShiftSearchFilter from './components/shiftmanagement/AssignShiftSearchFilter';
 import SalarySearchFilter from '../MonthlyDeductions/SalarySearchFilter';
 import LoanSearchFilter from '../MonthlyDeductions/LoanSearchFilter';
+import DeductionFilter from '../MonthlyDeductions/DeductionFilter';
 import LeaveFilter from '../LeaveManagement/LeaveFilter';
 import { LoadingScreen } from 'src/components/loading-screen';
 import ExpenseClaimFilters from '../configaration/expenseclaimconfiguration/ExpenseClaimFilters';
@@ -259,26 +260,6 @@ const [filterHeaders, setFilterHeaders]=useState([])
  
   const handleEditRow = (rowData,eventData) => {
     onClickActions(rowData,eventData);
-    if (eventData?.type === "/serviceCall"){
-     console.log("servicecall")
-    }
-    else if (eventData?.type === "edit"){
-      buttonFunction(rowData);
-      
-      console.log("servce call will called for edit")
-    }
-    else if (eventData?.type === "delete"){
-      deleteFunction(rowData);
- 
-      console.log("servce call will called for delete")
-    }
-    else{
-      console.log("servce call error")
-    }
- 
- 
-   
- 
   }
  
   const handleFilterStatus = useCallback(
@@ -430,7 +411,19 @@ const payload = initialDefaultPayload;
 table.onSort(field);
 getTableData(payload)
 };
-  
+
+const getRowActionsBasedOnStatus = (status) => {
+  if (status === 'pending' || status===""|| status==="Pending") {
+    return rowActions
+  } 
+  else {
+    return null
+  } 
+}
+
+
+
+
   
   return (
     <>
@@ -459,6 +452,8 @@ getTableData(payload)
        {filterName === "SwapSearchFilter" && <SwapSearchFilter filterSearch={handleFilterSearch} filterData={handleFIlterOptions}  searchData={handleFilterSearch}/>}
        {filterName === "SalaryStructureFilterSearch" && <SalaryStructureFilters filterSearch={handleFilterSearch} filterData={handleFIlterOptions} searchData={handleFilterSearch} />}
        {filterName === "WorkWeekFilterSearch" && <WorkWeekFilters filterSearch={handleFilterSearch} filterData={handleFIlterOptions} searchData={handleFilterSearch}/>}
+       {filterName==="DeductionFilter" && <DeductionFilter filterSearch={handleFilterSearch} filterData={handleFIlterOptions}/>}
+       
        {filterName === "CompoffFilterSearch" && <CompoffFilters filterSearch={handleFilterSearch} filterData={handleFIlterOptions} searchData={handleFilterSearch}/>}
 
         <Card>
@@ -522,7 +517,7 @@ getTableData(payload)
                           onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={(event) => { handleEditRow(row, event) }}
                           headerContent={TABLE_HEAD}
-                          rowActions={rowActions || []}
+                          rowActions={getRowActionsBasedOnStatus(row.status)}
                         />
                        
  
