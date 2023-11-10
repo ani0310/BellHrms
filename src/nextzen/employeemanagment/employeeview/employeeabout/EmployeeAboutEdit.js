@@ -438,7 +438,6 @@ const EmployeeAboutEdit = ({open,handleEditClose,currentUserData,userlocation,dr
                       }
                       ))
                     }}
-                    style={{ paddingLeft: 0, width: '100%' }}
                   />
                 </Grid>
                 <Grid md={6} xs={12}  fullWidth item>
@@ -951,9 +950,5 @@ export default EmployeeAboutEdit
 EmployeeAboutEdit.propTypes = {
     open: PropTypes.string,
     handleEditClose:PropTypes.func,
-    currentUserData:PropTypes.object,
-    userlocation:PropTypes.object,
-    dropDownOptions:PropTypes.array,
-    dropDownvalue:PropTypes.array
-
+    currentUserData:PropTypes.object
   };

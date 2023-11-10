@@ -111,7 +111,7 @@ const [sendData, setSendData] = useState({
           <Grid xs={12} md={12}>
             <Grid sx={{padding:'8px'}}>
               <Typography sx={{marginLeft:'5px'}}>
-                Enter Your Amount to Request Salary In Advace 
+                Enter Your requestAmount to Request Salary In Advace 
               </Typography>
             </Grid>
             <Card sx={{ p: 3 }}>
@@ -124,16 +124,16 @@ const [sendData, setSendData] = useState({
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFTextField name="requestAmount" label="Amount" />
+                <RHFTextField name="requestAmount" label=" Enter Amount" />
    
-                <RHFTextField name="commentStatus" label="Comments" />
+                <RHFTextField name="commentStatus" label="Commen" />
               </Box>
 
               <Stack alignItems="flex-end" sx={{ mt: 3, display:"flex", flexDirection:'row',justifyContent:"flex-end"}}>
-                <LoadingButton type="submit" variant="contained" color="primary" loading={isSubmitting}>
+                <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                   {!currentUser ? 'Create User' : 'Apply Salary Advance'}
                 </LoadingButton>
-                <Button  sx={{ml:"5px"}} onClick={handleClose}>Cancel</Button>
+                <Button sx={{backgroundColor:"#d12317",ml:"5px"}} onClick={handleClose}>Cancel</Button>
               </Stack>
            
             </Card>

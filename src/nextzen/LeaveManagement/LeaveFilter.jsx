@@ -242,7 +242,7 @@ export default function LeaveFilter({filterSearch,filterData}){
       </Grid>
          </Grid>
      
-      <Dialog
+      <BootstrapDialog
         onClose={handleClickClose}
         aria-labelledby="customized-dialog-title"
         open={open}
@@ -435,7 +435,7 @@ export default function LeaveFilter({filterSearch,filterData}){
          </DialogContent>
        <div style={{marginBottom:16}}>  <Button variant="contained" color='primary' sx={{float:'right',marginRight:2}} onClick={()=>{handleApply()}}>Apply</Button>
          <Button sx={{float:'right',right:15}} onClick={()=>{handleCancel()}}>Cancel</Button></div>
-    </Dialog>
+    </BootstrapDialog>
     </>
     )
     

@@ -2,8 +2,7 @@ import * as React from 'react';
 import {Button,Dialog,DialogContent,TextField,Grid,Stack,Typography} from '@mui/material';
 import { useState,useCallback} from 'react';
 import { BasicTable } from '../Table/BasicTable';
-import { baseUrl } from '../global/BaseUrl';
-import axios from 'axios';
+
 import ApplyLoan from './ApplyLoan';
 import {useSnackbar} from '../../components/snackbar';
 export default function Loans() {
@@ -17,13 +16,19 @@ export default function Loans() {
           minWidth:"8pc",
           type: "text",
     
+          containesAvatar: false,
+    
+     
+    
+          secondaryText: "text",
+    
         },
     
-        { id: "employeeName", label: "Employee Name", minWidth: "10pc", type: "text" },
+        { id: "employeeName", label: "Employe Name", width: 180, type: "text" },
     
-        { id: "requestDate", label: "Request Date", minWidth: "8pc", type: "text" },
+        { id: "requestDate", label: "request Date", width: 220, type: "text" },
     
-        { id: "requestAmount", label: "Request Amount", minWidth: "7pc", type: "text" },
+        { id: "requestAmount", label: "Request Amount", width: 180, type: "text" },
     
         { id: "paidDate", label: "Paid Date", minWidth: "8pc", type: "text" },
         { id: "paidAmount", label: "paid Amount", minWidth: "7pc", type: "text" },
@@ -39,11 +44,11 @@ export default function Loans() {
     
       const actions = [
     
-        { name: "Approve",id:'approved',type:'serviceCall',endpoint:"/approveLoanDetails"},
-        { name: "Reject",id:'rejected',type:'serviceCall',endpoint:"/approveLoanDetails"},
+        { name: "approve", icon: "hh", path: "jjj" },
     
-        { name: "Edit",id:'edit',type:'editform',endpoint:"/updateLoanDetails" },
+        { name: "view", icon: "hh", path: "jjj" },
     
+        { name: "eerr", icon: "hh", path: "jjj" },
     
       ];
     
@@ -66,17 +71,17 @@ export default function Loans() {
     "externalFilters": {
   "requestDate": {
    
-  "from": "",
+  "RequestDateStart": "",
    
-  "to": ""
+  "RequestDateEnd": ""
    
   },
    
   "paidDate": {
    
-  "from": "",
+  "PaidDateFrom": "",
    
-  "to": ""
+  "PaidDateTo": ""
    
   },
    
@@ -84,7 +89,7 @@ export default function Loans() {
       "status": "",
       "requestAmount":"",
       "paidAmount":"",
-      "approverName":"",
+      "approverID":"",
       "interestRate" : ""
     },
     "sort": {
