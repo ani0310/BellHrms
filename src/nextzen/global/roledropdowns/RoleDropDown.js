@@ -45,7 +45,8 @@ const ApiHitLocations=()=>{
     
     });
   }
-  const ApiHitDepartment=(obj)=>{
+  const ApiHitDepartment=async(obj)=>{
+    try{
     const config = {
 
       method: 'post',
@@ -70,6 +71,7 @@ const ApiHitLocations=()=>{
     console.error(error);
     return [];
   }
+}
 
   const ApiHitDesgniation=(obj)=>{
     const config = {
