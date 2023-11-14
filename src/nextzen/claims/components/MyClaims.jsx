@@ -251,11 +251,43 @@ const handleClick=()=>{
   };
   // form related data
 
-  const handleChangeDate = (newValue, index, name) => {
-    // const newObj = defaultValues;
-    // newObj[index][name] = new Date(newValue);
-    // setDefaultValues(newObj);
+  // const handleChangeDate = (newValue, index, name) => {
+  //   const newObj = defaultValues;
+  //   newObj[index][name] = new Date(newValue);
+    
+  // };
+
+
+
+  // const handleChangeDate = (newValue, index, name) => {
+    
+  //   const newObj = { ...defaultValues };   
+  //   // newObj[index][name] = new Date(newValue);
+
+
+  //   newObj[index] = {
+  //     ...newObj[index],
+  //     [name]: new Date(newValue),
+  //   };
+  //   console.log(newObj,"date in my claims"); 
+  // };
+
+  const handleChangeDate = (newValue, name) => {
+    const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
+    const newObj = { ...defaultValues };
+    newObj[name] = formattedDate;
+   
+    
+  
+   
+    // newObj[name] = new Date(newValue);
+ 
+    console.log(formattedDate, "date in my claims");
+  
+   
   };
+  
+
   const [datesUsed, setDatesUsed] = useState({
     date_of_birth: dayjs(new Date()),
     joining_date: dayjs(new Date()),
@@ -385,6 +417,8 @@ const values = watch();
     }));
   };
 
+  
+
 
   
   const onclickActions = async(rowData,eventData) => {
@@ -400,6 +434,7 @@ const values = watch();
         company_id: 'COMP2',
       };
     
+      console.log("updatedRowData",updatedRowData)
       setEditData(updatedRowData);
 
       if (eventData?.type === 'edit') {
@@ -509,8 +544,8 @@ const values = watch();
         }}
       >
         <FormProvider methods={methods} onSubmit={onSubmit}>
-          {/* methods={methods} onSubmit={onSubmit} */}
-          <DialogTitle>Apply All Claims</DialogTitle>
+    
+          <DialogTitle>Apply  Claim</DialogTitle>
 
           <DialogContent>
             {/* <Alert variant="outlined" severity="info" sx={{ mb: 3 }}>
@@ -528,15 +563,9 @@ const values = watch();
                 sm: 'repeat(2, 1fr)',
               }}
             >
-              {/* <RHFSelect name="status" label="Status">
-              {USER_STATUS_OPTIONS.map((status) => (
-                <MenuItem key={status.value} value={status.value}>
-                  {status.label}
-                </MenuItem>
-              ))}
-            </RHFSelect> */}
+              
 
-              {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }} /> */}
+        
 
               <RHFAutocomplete
                 name="type_oc_claim"
@@ -560,35 +589,7 @@ const values = watch();
  
 
               
-              {/* <RHFAutocomplete
-                name="country"
-                label=" Currency for Reimbursement"
-                options={countries.map((country) => country.label)}
-                getOptionLabel={(option) => option}
-                isOptionEqualToValue={(option, value) => option === value}
-                renderOption={(props, option) => {
-                  const { code, label, phone } = countries.filter(
-                    (country) => country.label === option
-                  )[0];
-
-                  if (!label) {
-                    return null;
-                  }
-
-                  return (
-                    <li {...props} key={label}>
-                      <Iconify
-                        key={label}
-                        icon={`circle-flags:${code.toLowerCase()}`}
-                        width={28}
-                        sx={{ mr: 1 }}
-                      />
-                      {label} ({code}) +{phone}
-                    </li>
-                  );
-                }}
-              /> */}
-
+             
 
               <RHFTextField name="claim_amount" label="Claim Amount" />
               <Grid sx={{ alignSelf: "flex-start" }}  >
@@ -596,17 +597,19 @@ const values = watch();
                   {/* <DemoContainer  sx={{paddingTop:0}} components={['DatePicker']}> */}
                   <DatePicker
                     sx={{ width: '100%', paddingLeft: '3px' }}
-                    label="To"
-                    // value={item?.to}
+                    label="Expense Date"
+                    
+                
+                    // value={new Date(value), 'yyyy-MM-dd'}
                     onChange={(newValue) => {
-                      handleChangeDate(newValue, 'to');
+                      handleChangeDate(newValue, 'expense_date');
                     }}
                   />
                   {/* </DemoContainer> */}
                 </LocalizationProvider>
               </Grid>
               <RHFTextField name="comment" label="comments" />
-              {/* <RHFTextField name="phoneNumber" label=" Attachment" /> */}
+             
               <Grid sx={{ alignSelf: "flex-end" }}>
 
                 <Controller
@@ -622,29 +625,7 @@ const values = watch();
                   )}
                 />
               </Grid>
-              <TextField
-                fullWidth
-                variant="outlined"
-                InputLabelProps={{ htmlFor: 'contained-button-file' }}
-                label="Upload Document"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <input
-                        accept=".doc,.pdf"
-                        style={{ display: 'none' }}
-                        id="contained-button-file"
-                        multiple
-                        type="file"
-                      />
-                      <label htmlFor="contained-button-file">
-                        {/* <CloudUploadIcon /> */}
-                        <CloudUploadIcon />
-                      </label>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+             
 
 
 
@@ -700,20 +681,7 @@ const values = watch();
 
               {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }} /> */}
               
-              {/* <RHFAutocomplete
-                name="claim_type"
-                label="Claim Type"
-                options={compoff_type}
-               
-                getOptionLabel={(option) => option.label}
-               getOptionValue={(option) => option.value}
-                
-                isOptionEqualToValue={(option, value) => option === value}
-                value={editData?.claim_type || {}} 
-                onChange={(event, newValue) => handleEditChange('claim_type', newValue)
-              }
-               
-              /> */}
+              
 
 <Autocomplete
   name="claim_type"
@@ -723,8 +691,8 @@ const values = watch();
   getOptionLabel={(option) => option.label}
   // getOptionValue={(option) => option.value}  // Specify the property used as the value
   // isOptionEqualToValue={(option, value) => option.value === value} // Adjust this line to compare values
-  value={editData?.claim_type || null}  // Set the value to null if it's undefined
-  onChange={(event, newValue) => handleEditChange('claim_type', newValue)}
+  value={editData?.claim_type || null}  
+  onChange={(event, newValue) => handleEditChange('claim_type', newValue?.label)}
   renderInput={(params) => (
     <TextField {...params} label="Claim Type" variant="outlined" />
   )}
@@ -736,11 +704,13 @@ const values = watch();
                   <DatePicker
                     sx={{ width: '100%', paddingLeft: '3px' }}
                     label="Claim Date"
-                    // value={item?.to}
+                    value={ dayjs( editData['claim_date'] || null)}
                     onChange={(newValue) => {
-                      // handleChangeDate(newValue, 'to');
+                      
+                      handleEditChange('claim_date', formatDateToYYYYMMDD(newValue));
                     }}
                   />
+                
                   {/* </DemoContainer> */}
                 </LocalizationProvider>
               </Grid>
@@ -754,9 +724,11 @@ const values = watch();
                   <DatePicker
                     sx={{ width: '100%', paddingLeft: '3px' }}
                     label="Expense Date"
-                    // value={item?.to}
-                    onChange={(newValue) => {
-                     // handleChangeDate(newValue, 'End');
+                    
+                    // value={editData?.expense_date || ""}
+                    value={ dayjs( editData['expense_date'] || null)}
+                    onChange={(newValue) => {  
+                      handleEditChange('expense_date', formatDateToYYYYMMDD(newValue));
                     }}
                   />
                   {/* </DemoContainer> */}
