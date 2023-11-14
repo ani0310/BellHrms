@@ -198,9 +198,9 @@ const   GeneralInformation=forwardRef((props,ref)=> {
         const config = {
           method: 'POST',
           maxBodyLength: Infinity,
-          url: `${baseUrl}/onBoarding`,
+          url: `${baseUrl}onBoarding`,
           headers: { 
-         'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTk2Nzc5NjF9.0-PrJ-_SqDImEerYFE7KBm_SAjG7sjqgHUSy4PtMMiE',
+         'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDI1MjcxMTEsInJhbmRvbSI6Nzk5MjR9.f4v9qRoF8PInZjvNmB0k2VDVunDRdJkcmE99qZHZaDA',
              
             'Content-Type': 'text/plain'
           },
