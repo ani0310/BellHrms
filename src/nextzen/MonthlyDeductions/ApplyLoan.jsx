@@ -36,7 +36,9 @@ import instance  from 'src/api/BaseURL';
 import { Autocomplete } from '@mui/lab';
 import { Button } from '@mui/material';
 import formatDateToYYYYMMDD from '../global/GetDateFormat';
+
 export default function ApplyLoan({ currentUser,handleClose }) {
+  
   const [datesUsed, setDatesUsed] = useState({
     No_instalment: dayjs(new Date()),
     end_date: dayjs(new Date()),
@@ -52,11 +54,11 @@ export default function ApplyLoan({ currentUser,handleClose }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    requestAmount: Yup.number(),
+    Amount: Yup.string(),
     // No_instalment: Yup.string(),
     // end_date: Yup.string(),
     // due_date: Yup.string().required('First Name is Required'),
-    comment: Yup.string(),
+    Comment: Yup.string(),
    
    
   });
@@ -64,11 +66,11 @@ export default function ApplyLoan({ currentUser,handleClose }) {
   const defaultValues = useMemo(
     () => ({
    
-        requestAmount: currentUser?.requestAmount || '',
+        Amount: currentUser?.Amount || '',
         // No_instalment: currentUser?.No_instalment || '',
         // end_date: currentUser?.end_date || '',
         // due_date: currentUser?.due_date || '',
-        comment: currentUser?.comment || '',
+        Comment: currentUser?.Comment || '',
   
    
     }),
@@ -142,16 +144,16 @@ const [sendData, setSendData] = useState({
                   sm: 'repeat(2, 1fr)',
                 }}
               >
-                <RHFTextField name="requestAmount" type={number} label="Enter Amount" />
+                <RHFTextField name="Amount" type={number} label=" Enter Amount" />
                 {/* <RHFTextField name="No_instalment" label=" No Of Instalment" /> */}
-                <RHFTextField name="comment" label="Comment" />
+                <RHFTextField name="Comment" label="Comment" />
               </Box>
 
               <Stack alignItems="flex-end" sx={{ mt: 3, display:"flex", flexDirection:'row',justifyContent:"flex-end"}}>
-                <LoadingButton type="submit" variant="contained" color='primary' loading={isSubmitting}>
+                <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                   {!currentUser ? 'Create User' : 'Apply Loan'}
                 </LoadingButton>
-                <Button sx={{ml:"5px"}} onClick={handleClose}>Cancel</Button>
+                <Button sx={{backgroundColor:"#d12317",ml:"5px"}} onClick={handleClose}>Cancel</Button>
               </Stack>
            
             </Card>

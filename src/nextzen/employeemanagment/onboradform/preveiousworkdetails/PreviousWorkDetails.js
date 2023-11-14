@@ -159,7 +159,7 @@ const PreviousWorkDetails=forwardRef((props,ref)=>{
   const ApiHitExperience=()=>{
     const obj={
       companyId: "COMP5",
-      employeeId:localStorage.getItem('employeeIdCreated'),
+      employeeId: "NEWC19",
       experience:defaultValues
      }
      console.log(obj,'obbbbb');
@@ -176,7 +176,7 @@ const PreviousWorkDetails=forwardRef((props,ref)=>{
         },
         data : {
       companyId: "COMP5",
-      employeeId: localStorage.getItem('employeeIdCreated'),
+      employeeId: "NEWC19",
       experience:defaultValues
      }
       };

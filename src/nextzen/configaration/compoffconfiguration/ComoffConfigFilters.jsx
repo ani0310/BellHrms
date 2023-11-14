@@ -91,9 +91,9 @@ function getStyles(name, personName, theme) {
 
 export default function ComoffConfigFilters({ filterData, filterOptions ,filterSearch,searchData}) {
   const theme = useTheme();
-  const compensatorys = [
-    'Leave',
-    'Incashment'
+  const holidayNames = [
+    'Diwali',
+    'Gandhi Jayanthi'
   ];
   const locationName = [
     'infobell'
@@ -114,7 +114,7 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
   const [dropdownshift_name, setDropdownStatus] = useState([]);
   const [dropdownDesignationGradeName, setDropdownDesignationGradeName] = useState([]);
   const [dropdownLocation, setdropdownLocation] = useState([]);
-  const [dropdownCompensatory, setdropdownCompensatory] = useState([]);
+  const [dropdownHolidayname, setdropdownDepartmentname] = useState([]);
 
   const [datesFiledArray, setDatesFiledArray] = useState([
     {
@@ -134,7 +134,7 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
       options: [],
     },
     {
-      field: 'compensatory',
+      field: 'holiday_name',
       options: [],
     },
   ]);
@@ -224,8 +224,8 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
       const obj = dropdown;
       obj[field] = value;
       setDropdown(obj);
-    } else if (field === 'compensatory') {
-      setdropdownCompensatory(value);
+    } else if (field === 'holiday_name') {
+      setdropdownDepartmentname(value);
       const obj = dropdown;
       obj[field] = value;
       setDropdown(obj);
@@ -308,22 +308,22 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
           {/* <Grid  spacing={2}  sx={{flexDirection:'row',display:'flex'}}> */}
             {/* <Typography style={{marginBottom:"0.8rem"}}> Date Activity</Typography> */}
            
-            <Grid container spacing={1}  sx={{flexDirection:'row',display:'flex',justifyContent: 'center', alignItems: 'center',marginTop:'1rem'}} item>
+            <Grid container spacing={1}   sx={{flexDirection:'row',display:'flex',marginTop:'1rem'}} item>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="compensatory">Compensatory</InputLabel>
+                  <InputLabel id="holiday_name">Holiday Name</InputLabel>
                   <Select
                   fullWidth
                     labelId="demo-multiple-name-shift_name_1"
                     id="demo-multiple-shift_name_1"
                     multiple
-                    value={dropdownCompensatory}
-                    onChange={(e) => handleChangeDropDown(e, 'compensatory')}
-                    input={<OutlinedInput label="Compensatory" />}
+                    value={dropdownHolidayname}
+                    onChange={(e) => handleChangeDropDown(e, 'holiday_name')}
+                    input={<OutlinedInput label="Holiday Name" />}
                     MenuProps={MenuProps}
                     // sx={{minWidth:'300px'}}
                   >
-                    {compensatorys.map((name) => (
+                    {holidayNames.map((name) => (
                       <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
                         {name}
                       </MenuItem>
@@ -331,7 +331,7 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
                   </Select>
                 </FormControl>
               </Grid>
-              {/* <Grid item xs={6} >
+              <Grid item xs={6} >
                   <FormControl fullWidth>
                     <InputLabel id="location">Location</InputLabel>
                     <Select
@@ -356,7 +356,7 @@ export default function ComoffConfigFilters({ filterData, filterOptions ,filterS
                       ))}
                     </Select>
                   </FormControl>
-                </Grid> */}
+                </Grid>
                 <Grid  item xs={12} md={6}>
                 {/* <FormControl fullWidth >
                 <InputLabel id="designation_grade_name">Designation Grade Name</InputLabel>

@@ -70,7 +70,7 @@ const   EducationInformation=forwardRef((props,ref)=> {
   const onSave=()=>{
     const obj={
      companyId: "COMP5",
-     employeeId: localStorage.get('employeeIdCreated'),
+     employeeId: "NEWC19",
      education:defaultValues
     }
 

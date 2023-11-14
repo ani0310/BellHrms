@@ -6,7 +6,6 @@ export default function CompoffConfigurationTable() {
     const TABLE_HEAD = [
       { id: 'compensatory', label: 'Compensatory', type: 'text', minWidth:180 },
       { id: 'type', label: 'Type', type: 'text' , minWidth:180},
-      { id: 'value', label: 'Value', type: 'text' , minWidth:180},
     ];
     const actions = [
       { name: 'View', icon: 'hh', path: 'jjj' },

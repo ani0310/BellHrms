@@ -22,14 +22,14 @@ export default function SalaryAdvace() {
          
         },
     
-        { id: "employeeName", label: "Employee Name", minWidth: "10pc", type: "text" },
+        { id: "employeeName", label: "Employe Name", width: 180, type: "text" },
     
-        { id: "requestDate", label: "Request Date", minWidth: "8pc", type: "text" },
+        { id: "requestDate", label: "request Date", width: 220, type: "text" },
     
-        { id: "requestAmount", label: "Request Amount", width: "7pc", type: "text" },
+        { id: "requestAmount", label: "Request Amount", width: 180, type: "text" },
     
-        { id: "paidDate", label: "Paid Date", minWidth: "8pc", type: "text" },
-        { id: "PaidAmount", label: "paid Amount", width: "7pc", type: "text" },
+        { id: "paidDate", label: "Paid Date", width: 100, type: "text" },
+        { id: "PaidAmount", label: "paid Amount", width: 100, type: "text" },
         { id: "approverName", label: "Approver Name", width: 100, type: "text" },
         { id: "commentStatus", label: "Comments", width: 100, type: "text" },
        
@@ -48,6 +48,7 @@ export default function SalaryAdvace() {
     
         { name: "Edit",id:'edit',type:'editform',endpoint:"/updateSalaryAdvance" },
     
+        { name: "eerr", icon: "hh", path: "jjj" },
     
       ];
       const [showForm, setShowForm] = useState  (false);
@@ -66,17 +67,17 @@ export default function SalaryAdvace() {
     "externalFilters": {
   "requestDate": {
    
-  "from": "",
+  "RequestDateStart": "",
    
-  "to": ""
+  "RequestDateEnd": ""
    
   },
    
   "paidDate": {
    
-  "from": "",
+  "PaidDateFrom": "",
    
-  "to": ""
+  "PaidDateTo": ""
    
   },
       "status": "",
