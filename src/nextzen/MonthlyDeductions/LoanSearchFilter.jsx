@@ -30,15 +30,6 @@ const defaultFilters = {
   startDate: null,
   endDate: null,
 };
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
-      overflow:"hidden"
-    },
-    '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
-    },
-  }));
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -197,10 +188,18 @@ export default function LoanSearchFilter({filterSearch,filterData}){
         setShowForm(true)
      
       } 
-      
-      const handleSearch=(e)=>{
-        filterSearch(e?.target?.value)
-      }
+      const debounce = (func, delay) => {
+        let debounceTimer;
+        return function () {
+          const context = this;
+          const args = arguments;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+      };
+        const handleSearch=debounce((e)=>{
+          filterSearch(e?.target?.value)
+        },1000)
   
       const handleCancel = async()=>{
         setDropdownStatus([]);
@@ -217,9 +216,9 @@ export default function LoanSearchFilter({filterSearch,filterData}){
       }
 
       const ApproversList = () => {
-        console.log("Approverslist api called")
         const payload = {
-          companyID: "COMP1"
+          // companyID: "COMP1"
+          companyID:localStorage?.getItem('companyID')
         }
        
         const config = {
