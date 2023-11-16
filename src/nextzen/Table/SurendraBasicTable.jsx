@@ -124,6 +124,7 @@ import axios from 'axios';
 import UserTableRow from './components/UserTableRow';
 
 import Style from "../styles/Style.module.css";
+import { baseUrl } from '../global/BaseUrl';
 
  
 
@@ -151,7 +152,7 @@ const defaultFilters = {
 
  
 
-const SurendraBasicTable = ({ endpoint,onclickActions, defaultPayload ,headerData,rowActions,bodyData,filterName,button,buttonFunction, filterContent,dialogPayload}) => {
+const SurendraBasicTable = ({ endpoint,onclickActions, defaultPayload ,headerData, rowActions,bodyData,filterName,button,buttonFunction, filterContent,dialogPayload}) => {
 
   // const popover = usePopover();
 
@@ -161,7 +162,7 @@ const SurendraBasicTable = ({ endpoint,onclickActions, defaultPayload ,headerDat
 
   const [initialDefaultPayload, setInitialDefaultPayload] = useState(defaultPayload);
 
-//  console.log(initialDefaultPayload,"initialDefaultPayload====================")
+ console.log(initialDefaultPayload,"initialDefaultPayload====================")
 
 //  console.log(actions,"actions==......")
 
@@ -169,7 +170,7 @@ const SurendraBasicTable = ({ endpoint,onclickActions, defaultPayload ,headerDat
 
   const [newPage, setNewPage]=useState(initialDefaultPayload?.Page);
 
-  // console.log(initialDefaultPayload?.Page,"page value")
+  console.log(initialDefaultPayload?.Page,"page value")
 
   // const countValue = initialDefaultPayload?.Count;
 
@@ -212,14 +213,7 @@ const [filterHeaders, setFilterHeaders]=useState([])
 
   // const bodyData = 'appliedLeave';
 
-  const getRowActionsBasedOnStatus = (status) => {
-    if (status === 'pending' || status==="" || status ==="Pending") {
-      return rowActions
-    }
-    else {
-      return null
-    }
-  }
+ 
 
   useEffect(() => {
 
@@ -254,7 +248,9 @@ const [filterHeaders, setFilterHeaders]=useState([])
 
       // url:`http://192.168.1.79:8080/appTest/GetMycompoffdetails`,
       // http://192.168.1.26:3001/erp/getAllClaims,
-      url: `http://192.168.1.199:3001/erp/${endpoint}`,
+      // url: `http://192.168.1.199:3001/erp/${endpoint}`,
+      url: baseUrl+`${endpoint}`,
+
       headers: {
 
         // 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTk2Nzc5NjF9.0-PrJ-_SqDImEerYFE7KBm_SAjG7sjqgHUSy4PtMMiE'
@@ -408,7 +404,15 @@ const [filterHeaders, setFilterHeaders]=useState([])
     console.log(event)
 
   }
-
+  const getRowActionsBasedOnStatus = (status) => {
+    if (status === 'pending' || status===""|| status==="Pending") {
+      return rowActions
+    } 
+    else {
+      return null
+    } 
+  }
+  
  
 
  
@@ -646,13 +650,20 @@ const [filterHeaders, setFilterHeaders]=useState([])
   }
 
   // sort 
+ 
   
 const [sortColumn, setSortColumn]=useState("")
+
+
+// useEffect(()=>{
+//   getTableData(payload)
+// },[sortColumn])
 
 
   const handleSort = (field,order) => {
   // console.log(order,"orderrrrrrrrrrrrr")
   // console.log(field,"for sorting .....")
+  
 
   const payload = initialDefaultPayload;
 
@@ -794,6 +805,7 @@ const [sortColumn, setSortColumn]=useState("")
 
        
 
+                    {console.log(tableData)}
 
                     {tableData && tableData.length > 0 && tableData
 
@@ -818,12 +830,16 @@ const [sortColumn, setSortColumn]=useState("")
                           onEditRow={(event) => { handleEditRow(row, event) }}
 
                           headerContent={TABLE_HEAD}
-                         
+
                           rowActions={getRowActionsBasedOnStatus(row.status)|| []}
-                         
+
                         />
 
-
+{/* {tableData.map((headCell) => (
+      <TableCell key={headCell.id}>
+        {row[headCell.id] || '-'}
+      </TableCell>
+    ))} */}
 
                         
 

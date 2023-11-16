@@ -88,7 +88,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function PayScheduleFilters({ filterData, filterOptions }) {
+export default function PayScheduleFilters({ filterData, filterOptions,searchData  }) {
   const theme = useTheme();
   const names = [
     'Oliver Hansen',
@@ -102,13 +102,14 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
     'Virginia Andrews',
     'Kelly Snyder',
   ];
-  const employeeTypes=[
+  const employmentTypes=[
     'Permanent',
-    'Contract'
+    'contract'
   ];
-  const payScheduleTypes=[
-    'typ1',
-  ];
+  const payscheduleTypes=[
+    '52-Once a week',
+    '26-Once in a two weeks',
+  ];  
   const [dropdown, setDropdown] = useState({});
 
   const [dateError, setDataError] = useState('');
@@ -118,8 +119,8 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
   const [dropdownEmployemtType, setDropdownEmployemtType] = useState([]);
   const [dropdownshift_name, setDropdownStatus] = useState([]);
   const [dropdownDesignationGradeName, setDropdownDesignationGradeName] = useState([]);
-  const [dropdownpayScheduleType, setdropdownpayScheduleType] = useState([]);
-  const [dropdownemployeeType, setdropdownemployeeType] = useState([]);
+  const [dropdownpayscheduleType, setdropdownpayscheduleType] = useState([]);
+  const [dropdownemploymentType, setdropdownemploymentType] = useState([]);
 
   const [datesFiledArray, setDatesFiledArray] = useState([
     {
@@ -135,11 +136,11 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
       options: [],
     },
     {
-      field: 'payScheduleType',
+      field: 'payscheduleType',
       options: [],
     },
     {
-      field: 'employeeType',
+      field: 'employmentType',
       options: [],
     },
   ]);
@@ -183,7 +184,7 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
       dropdownFiledArray.forEach((item, index) => {
         if (dropdown[item.field]?.length > 0) {
           const arrayOfStrings = dropdown[item.field];
-          const commaSeparatedString = arrayOfStrings.join(', ');
+          const commaSeparatedString = arrayOfStrings.join(',');
           arr1[item.field] = commaSeparatedString;
         }
 
@@ -224,13 +225,13 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
       const obj = dropdown;
       obj[field] = value;
       setDropdown(obj);
-    } else if (field === 'payScheduleType') {
-      setdropdownpayScheduleType(value);
+    } else if (field === 'payscheduleType') {
+      setdropdownpayscheduleType(value);
       const obj = dropdown;
       obj[field] = value;
       setDropdown(obj);
-    } else if (field === 'employeeType') {
-      setdropdownemployeeType(value);
+    } else if (field === 'employmentType') {
+      setdropdownemploymentType(value);
       const obj = dropdown;
       obj[field] = value;
       setDropdown(obj);
@@ -241,13 +242,11 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
     console.log(value);
     // console.log( typeof value === 'string' ? value.split(',') : value,)
   };
-  const [search, setSearch]=useState("");
-
-    const handleSearch = (searchTerm) => {
-      setSearch(searchTerm)
-        // searchData(search)
-        console.log(searchTerm,"search ........")
-        };
+  const handleSearch = (searchTerm) => {
+     
+    searchData(searchTerm)
+    console.log(searchTerm,"search ........")
+    };
   const handleApply = async () => {
     setDatesData([]);
 
@@ -269,18 +268,18 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
         direction="row"
         style={{ marginBottom: '1rem' }}
       >
-        <Grid item>
+        <Grid item md={8} xs={8}>
         <TextField
             placeholder="Search...."
              fullWidth
-             onChange={handleSearch}
+             onChange={(e) => handleSearch(e.target.value)}
           />
           
         </Grid>
-        <Grid item>
+        <Grid item md={2} xs={2}>
         <PayScheduleform/>
         </Grid>
-        <Grid item>
+        <Grid item md={2} xs={2} >
         <Grid>
             <Stack sx={{ display: 'flex', alignItems: 'flex-end' }}>
            
@@ -310,19 +309,19 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
             <Grid container spacing={1}   sx={{flexDirection:'row',display:'flex',marginTop:'1rem'}} item>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="employeeType">Employee Type</InputLabel>
+                  <InputLabel id="employmentType">Employee Type</InputLabel>
                   <Select
                   fullWidth
                     labelId="demo-multiple-name-shift_name_1"
                     id="demo-multiple-shift_name_1"
                     multiple
-                    value={dropdownemployeeType}
-                    onChange={(e) => handleChangeDropDown(e, 'employeeType')}
+                    value={dropdownemploymentType}
+                    onChange={(e) => handleChangeDropDown(e, 'employmentType')}
                     input={<OutlinedInput label="Employee Type" />}
                     MenuProps={MenuProps}
                     // sx={{minWidth:'300px'}}
                   >
-                    {employeeTypes.map((name) => (
+                    {employmentTypes.map((name) => (
                       <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
                         {name}
                       </MenuItem>
@@ -332,19 +331,19 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
               </Grid>
               <Grid item xs={6} >
                   <FormControl fullWidth>
-                    <InputLabel id="payScheduleType">Pay Schedule Type</InputLabel>
+                    <InputLabel id="payscheduleType">Pay Schedule Type</InputLabel>
                     <Select
                     fullWidth
                       labelId="demo-multiple-name-shift_name_1"
                       id="demo-multiple-shift_name_1"
                       multiple
-                      value={dropdownpayScheduleType}
-                      onChange={(e) => handleChangeDropDown(e, 'payScheduleType')}
+                      value={dropdownpayscheduleType}
+                      onChange={(e) => handleChangeDropDown(e, 'payscheduleType')}
                       input={<OutlinedInput label="Pay Schedule Type" />}
                       MenuProps={MenuProps}
                     //   sx={{minWidth:'300px'}}
                     >
-                      {payScheduleTypes.map((name) => (
+                      {payscheduleTypes.map((name) => (
                         <MenuItem
                           key={name}
                           value={name}
@@ -405,6 +404,7 @@ export default function PayScheduleFilters({ filterData, filterOptions }) {
 // }
 PayScheduleFilters.propTypes = {
   filterData: PropTypes.func,
+  searchData: PropTypes.any,
 };
 
 PayScheduleFilters.propTypes = {

@@ -91,7 +91,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function SalaryStructureFilters({ filterData, filterOptions ,filterSearch,searchData,cellData,openModal,type}) {
+export default function SalaryStructureFilters({ filterData, filterOptions ,filterSearch,searchData,cellData,openModal,type,onHandleOpen,handleClose}) {
   const theme = useTheme();
   const departmentName = [
     'HR',
@@ -264,20 +264,24 @@ export default function SalaryStructureFilters({ filterData, filterOptions ,filt
 
   const handleApply = async () => {
     setDatesData([]);
-    const data = await formWithDropdown();
-    filterData(data);
-    console.log(data, ';;;');
+    const obj={
+      departmentID:(optionsValue?.departmentValue?.departmentID).toString() || "",
+      designationGradeID:(optionsValue?.desginationGradeValue?.designationGradeID)?.toString()|| "",
+      designationID:(optionsValue?.desginationValue?.designationID)?.toString()|| ""
+    }
+    // const data = await formWithDropdown();
+    console.log(toString(optionsValue?.departmentValue?.departmentID),'filterss')
+    filterData(obj);
+    // console.log(optionsValue, 'optionsValue');
 
     //   filterData(data);
     handleClickClose();
   };
-  const [search, setSearch]=useState("");
-
-    const handleSearch = (e) => {
-      setSearch(e?.target?.value)
-        searchData(e?.target?.value)
-        // console.log(searchTerm,"search ........")
-        };
+  const handleSearch = (searchTerm) => {
+     
+    searchData(searchTerm)
+    console.log(searchTerm,"search ........")
+    };
   return (
     <>
        <Grid
@@ -288,7 +292,7 @@ export default function SalaryStructureFilters({ filterData, filterOptions ,filt
         direction="row"
         style={{ marginBottom: '1rem' }}
       >
-        <Grid item>
+        <Grid item  md={8} xs={8}>
         <TextField
             placeholder="Search...."
              fullWidth
@@ -297,9 +301,14 @@ export default function SalaryStructureFilters({ filterData, filterOptions ,filt
           
         </Grid>
         <Grid item>
+        <Button 
+        onClick={onHandleOpen} 
+         variant="contained"
+        startIcon={<Iconify icon="mingcute:add-line" />}
+        sx={{margin:'20px'}}>Add SalaryStructure</Button>
        {/* <SalaryStructureForm currentUserData={cellData} openModal={openModal}  type={type}/> */}
        </Grid>
-        <Grid item>
+        <Grid item  md={2} xs={2}>
         <Grid>
             <Stack sx={{ display: 'flex', alignItems: 'flex-end' }}>
            
@@ -354,8 +363,8 @@ export default function SalaryStructureFilters({ filterData, filterOptions ,filt
                   
                     var newArr = { ...optionsValue };
                       newArr.departmentValue=newvalue
-                    newArr.designationValue=undefined;
-                    newArr.designationGradeValue=undefined;
+                    newArr.desginationValue=undefined;
+                    newArr.desginationGradeValue=undefined;
 
                     
                     console.log(newArr,'newArr')
@@ -494,7 +503,9 @@ export default function SalaryStructureFilters({ filterData, filterOptions ,filt
 SalaryStructureFilters.propTypes = {
   filterData: PropTypes.func,
   searchData: PropTypes.any,
-  type:PropTypes.string
+  type:PropTypes.string,
+  onHandleOpen:PropTypes.func,
+  handleClose:PropTypes.func
 };
 
 SalaryStructureFilters.propTypes = {

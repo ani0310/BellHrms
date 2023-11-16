@@ -134,8 +134,8 @@ export default function TimeSheetTable() {
  <BasicTable
  defaultPayload={defaultPayload}
  headerData={TABLE_HEAD}
- endpoint='Mytimesheets'
- bodyData='response'
+ endpoint='/Mytimesheets'
+ bodyData='data'
  filterName="TimeSearchFilter"
  />
     </>
