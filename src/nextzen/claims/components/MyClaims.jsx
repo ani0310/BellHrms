@@ -63,21 +63,23 @@ export default function MyClaims({ currentUser ,}) {
   
   const claim_type = [
     { code: '', label: '', phone: '' },
-    { code: 'AD', label: 'Travel', value:0,  },
-    { code: 'AD', label: 'Medical',value:1,  },
-    { code: 'AD', label: 'Hotel', value:2,  },
+    { code: 'AD', label: 'Travel', value:0, phone: '376' },
+    { code: 'AD', label: 'Medical',value:1, phone: '376' },
+    { code: 'AD', label: 'Hotel', value:2, phone: '376' },
 
   ]
- 
-  // "claim_type": {
-  //   "expense_configuration_id": 1,
-  //    "expense_name": "hotel"
-  // },
+  // const compoff_type = [
+  //   { id: 'Empty', label: 'Empty', value: '' },
+  //   { code: 'AD', label: 'Travel', id:0, phone: '376' },
+  //   { code: 'AD', label: 'Medical leave', id:1,phone: '376' },
+  //   { code: 'AD', label: 'Hotel ', id:1,phone: '376' },
+
+  // ]
   const compoff_type = [
-    { expense_configuration_id: 1, expense_name: "hotel" },
-    { expense_configuration_id: 2, expense_name: "medical" },
-    { expense_configuration_id: 3, expense_name: "travel" },
-   
+    { code: 'Empty', label: '', phone: '' , value:1},
+    { code: 'AD', label: 'travel', id:0, phone: '376', value:2},
+    { code: 'AD', label: 'medical', id:1,phone: '376', value:3 },
+    { code: 'AD', label: 'hotel', id:1,phone: '376' , value :4},
 
   ]
   const currency = [
@@ -123,7 +125,6 @@ export default function MyClaims({ currentUser ,}) {
   // console.log(localStorage.getItem('reportingManagerID'),'localStorage.getItem')
   const managerID =localStorage.getItem('reportingManagerID');
   const employeeID =localStorage.getItem('employeeID');
-  const companyID =localStorage.getItem('companyID');
   const defaultPayload={
 
     "employee_id":employeeID,
@@ -291,14 +292,6 @@ const handleClick=()=>{
 
   });
 
-const [selectedDate, setSelectedDate] = useState( );
-console.log(selectedDate,"selectedDate")
-const handleDateChange = (newValue) => {
-
-  const parsedDate = dayjs(newValue).format('YYYY-MM-DD');
-  console.log(parsedDate,"pppppppppp");
-  setSelectedDate(parsedDate);
-};
   const defaultValues = useMemo(
     () => ({
       claim_amount: currentUser?.claim_amount || null ,
@@ -306,10 +299,10 @@ const handleDateChange = (newValue) => {
       // type_oc_claim: currentUser?.type_oc_claim|| '',
       currency:currentUser?.currency|| '$',
 
-      company_id:currentUser?.company_id || companyID,
-      employee_id:currentUser?.employee_id || employeeID,
-      expense_config_id:currentUser?.expense_config_id || 1,
-      expense_date: currentUser?.expense_date || "",
+      company_id:currentUser?.company_id || 'COMP2',
+      employee_id:currentUser?.employee_id || 'ibm3',
+      expense_config_id:currentUser?.expense_config_id|| 2,
+      expense_date:currentUser?.expense_date|| "2023-11-12",
 
       file_format:currentUser?.file_format|| "pdf",
       file:currentUser?.file,
@@ -342,9 +335,6 @@ const formData= new FormData();
 const values = watch();
   const onSubmit = handleSubmit(async (data) => {
   console.log('uyfgv');
-//  data?.expense_date= selectedDate;
-data.expense_date = selectedDate;
-
   console.log(data,"defaultValues111")
   // formData.append("file", null );
   // formData.append("claim_amount", 1234 );
@@ -393,7 +383,7 @@ data.expense_date = selectedDate;
   // for upload docmunt
   const [editData, setEditData]=useState({
   })
-console.log(editData,"editData")
+
   const handleEditChange = (field, value) => {
     console.log(field,value,"sssssssss")
     
@@ -451,21 +441,7 @@ console.log(editData,"editData")
  
 
   const onSubmitEdit2 = async(editData, event) => {
-
-    if(editData?.type_oc_claim=== "Medical" ||"medical"){
-      editData.expense_config_id = 2
-    }
-    else if (editData?.type_oc_claim=== "Travel" ||"travel"){
-      editData.expense_config_id = 3
-    }
-    else if (editData?.type_oc_claim=== "Hotel" ||"hotel"){
-      editData.expense_config_id = 1
-    }
-    else{
-      return null
-    }
     
-    console.log(editData,"editDataeditData222")
     try {
       event.preventDefault();
       // editData.claim_type=editData?.claim_type?.label
@@ -591,9 +567,11 @@ console.log(editData,"editData")
                     sx={{ width: '100%', paddingLeft: '3px' }}
                     label="Expense Date"
                     
-                    name="expense_date"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                
+                    // value={new Date(value), 'yyyy-MM-dd'}
+                    onChange={(newValue) => {
+                      handleChangeDate(newValue, 'expense_date');
+                    }}
                   />
                   {/* </DemoContainer> */}
                 </LocalizationProvider>
@@ -678,7 +656,7 @@ console.log(editData,"editData")
   label="Claim Type"
   options={compoff_type}
   
-  getOptionLabel={(option) => option.expense_name}
+  getOptionLabel={(option) => option.label}
   // getOptionValue={(option) => option.value} 
   // isOptionEqualToValue={(option, value) => option.value === value} 
   value={editData?.claim_type || null}  
@@ -692,14 +670,13 @@ console.log(editData,"editData")
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   {/* <DemoContainer  sx={{paddingTop:0}} components={['DatePicker']}> */}
                   <DatePicker
-                  readOnly
                     sx={{ width: '100%', paddingLeft: '3px' }}
                     label="Claim Date"
                     value={ dayjs( editData['claim_date'] || null)}
-                    // onChange={(newValue) => {
+                    onChange={(newValue) => {
                       
-                    //   handleEditChange('claim_date', formatDateToYYYYMMDD(newValue));
-                    // }}
+                      handleEditChange('claim_date', formatDateToYYYYMMDD(newValue));
+                    }}
                   />
                 
                   {/* </DemoContainer> */}
@@ -707,7 +684,7 @@ console.log(editData,"editData")
               </Grid>
               <RHFTextField name="claim_amount"  label="Claim Amount" 
               value={editData?.claim_amount}
-              onChange={(event) => handleEditChange('claim_amount', parseInt(event.target.value, 10))}
+              onChange={(event) => handleEditChange('claim_amount', event.target.value)}
               />
              
               <Grid sx={{ alignSelf: "flex-start" }}  >
