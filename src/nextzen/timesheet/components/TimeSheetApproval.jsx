@@ -514,7 +514,7 @@ const TimeSheetApproval = ({ currentUser, filterSearch }) => {
       // hrComments: commentsValue,
       // status: 'rejected',
       employee_id:rowData?.employeeId,
-      project_id: rowData?.projectId,
+      project_id:JSON.parse (rowData?.projectId ,10),
       status:1,
       managerComments: comment
     };
@@ -541,7 +541,7 @@ console.log(rowData ,"rowDataIN ")
       // hrComments: commentsValue,
       // status: 'rejected',
       employee_id:rowData?.employeeId,
-    project_id: rowData?.projectId,
+    project_id: JSON.parse (rowData?.projectId ,10),
     status:1,
     managerComments : comment
     };
