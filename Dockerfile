@@ -14,4 +14,4 @@ ENV TZ Asia/India
 
 COPY . .
 
-CMD ["pnpm", "start"]
+CMD ["pnpm", "build"]
