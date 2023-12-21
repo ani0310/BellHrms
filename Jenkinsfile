@@ -6,11 +6,11 @@ pipeline {
                 echo "The current build number is ${env.BUILD_NUMBER}"
                 echo "Another method is to use \${BUILD_NUMBER}, which is ${BUILD_NUMBER}"
             }
-        }
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
+        // }
+        // stage('Clean Workspace') {
+        //     steps {
+        //         deleteDir()
+        //     }
         }
         stage("Git clone"){
             steps{
