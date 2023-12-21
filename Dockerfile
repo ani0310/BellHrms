@@ -1,17 +1,39 @@
-FROM --platform=linux/arm64/v8 node:16.14.0-alpine
+FROM --platform=linux/arm64/v8 node:12.12.0-alpine
 
-# Install the latest version of pnpm
-RUN npm install -g pnpm@latest
+ 
 
-WORKDIR /app
+# set working directory
+
+#WORKDIR /
+
+ 
+
+# add `/app/node_modules/.bin` to $PATH
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+ 
+
+# install app dependencies
 
 COPY package.json ./
+
 COPY package-lock.json ./
-
-RUN pnpm install
-
-ENV TZ Asia/India
 
 COPY . .
 
-CMD ["pnpm", "build"]
+RUN npm install
+
+ENV TZ Asia/India
+
+ 
+
+# add app
+
+COPY . .
+
+ 
+
+# start app
+
+CMD ["npm" , "build"]
