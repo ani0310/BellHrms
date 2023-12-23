@@ -8,9 +8,9 @@ import { _userList } from '../../_mock';
 
 import { BasicTable } from '../Table/BasicTable';
 import UserContext from '../context/user/UserConext';
-
+import { useContext } from 'react';
 const BalanceSheetTable = () => {
-  const { user } = UserContext(UserContext);
+  const { user } = useContext(UserContext);
   const actions = [
     { name: 'Edit', icon: 'hh', id: 'edit' },
     { name: 'Delete', icon: 'hh', id: 'delete' },

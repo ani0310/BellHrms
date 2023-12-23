@@ -5,14 +5,16 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Icon } from '@iconify/react';
-import { baseUrl } from '../global/BaseUrl';
+import { baseImageUrl, baseUrl } from '../global/BaseUrl';
 import axios from 'axios';
-import { height } from '@mui/system';
+import { useContext } from 'react';
+import UserContext from '../context/user/UserConext';
 const OrganizationChart = () => {
   const [selectedManager, setSelectedManager] = useState(null);
   var [emp, setEmp] = useState();
   const [orgDatas, setOrgDatas] = useState(null);
   const [allData, setAllData] = useState([]);
+  const { user } = useContext(UserContext);
   // const [ceoDetails, setCeoDetails] = useState([]);
   const ApiHit = (obj) => {
     let config = {
@@ -39,7 +41,8 @@ const OrganizationChart = () => {
       });
   };
   const payload = {
-    companyId: 'COMP22',
+    // companyId: 'COMP22',
+    companyId:(user?.companyID)?user?.companyID:''
   };
   useEffect(() => {
     ApiHit(payload);
@@ -58,115 +61,15 @@ const OrganizationChart = () => {
       combinedDesignation: underling?.designationGrade + ' ' + underling?.designation,
     })) || [];
 
-  console.log(Under, 'under');
-  console.log(orgDatas);
-  console.log('details', details);
-  const orgData = {
-    name: 'Sreedhar Reddy Manikanti',
-    role: 'IT : Project Manager',
-    employeeId: 'EMP001',
-    children: [
-      {
-        name: 'Ramanaiah Bandili',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP002',
-        children: [
-          { name: 'Employee 1.1', role: 'Software Engineer', employeeId: 'EMP003' },
-          { name: 'Employee 1.2', role: 'Software Engineer', employeeId: 'EMP004' },
-          { name: 'Employee 1.3', role: 'UI/UX Designer', employeeId: 'EMP005' },
-        ],
-      },
-      {
-        name: 'Benak',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP006',
-        children: [
-          { name: 'Employee 2.1', role: 'Software Engineer', employeeId: 'EMP007' },
-          { name: 'Employee 2.2', role: 'Software Engineer', employeeId: 'EMP008' },
-          { name: 'Employee 2.3', role: 'UI/UX Designer', employeeId: 'EMP009' },
-        ],
-      },
-      {
-        name: 'Benak1',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP007',
-        children: [
-          { name: 'Employee 2.1', role: 'Software Engineer', employeeId: 'EMP007' },
-          { name: 'Employee 2.2', role: 'Software Engineer', employeeId: 'EMP008' },
-          { name: 'Employee 2.3', role: 'UI/UX Designer', employeeId: 'EMP009' },
-        ],
-      },
-      {
-        name: 'Benak2',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP008',
-        children: [
-          { name: 'Employee 2.1', role: 'Software Engineer', employeeId: 'EMP007' },
-          { name: 'Employee 2.2', role: 'Software Engineer', employeeId: 'EMP008' },
-          { name: 'Employee 2.3', role: 'UI/UX Designer', employeeId: 'EMP009' },
-        ],
-      },
-      {
-        name: 'Benak3',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP009',
-        children: [
-          { name: 'Employee 2.1', role: 'Software Engineer', employeeId: 'EMP007' },
-          { name: 'Employee 2.2', role: 'Software Engineer', employeeId: 'EMP008' },
-          { name: 'Employee 2.3', role: 'UI/UX Designer', employeeId: 'EMP009' },
-        ],
-      },
-      {
-        name: 'Benak4',
-        role: 'IT : Vice President Engineering',
-        employeeId: 'EMP0010',
-        children: [
-          { name: 'Employee 2.1', role: 'Software Engineer', employeeId: 'EMP007' },
-          { name: 'Employee 2.2', role: 'Software Engineer', employeeId: 'EMP008' },
-          { name: 'Employee 2.3', role: 'UI/UX Designer', employeeId: 'EMP009' },
-        ],
-      },
-      // ... other managers and employees
-    ],
-  };
+  // console.log(Under, 'under');
+  // console.log(orgDatas);
+  // console.log('details', details);
 
-  const gridContainerStyle = {
-    marginTop: 16,
-  };
-
-  const gridItemStyle = {
-    width: '200px', // Adjust the width as needed
-    textAlign: 'center',
-     margin: '10px', // Center the card
-    height:'200px'
-  };
-
-  const ceoCardStyle = {
-    width: '30%', // Adjust the width as needed
-    textAlign: 'center',
-    margin: '0 auto', // Center the card
-  };
-
-  const renderEmployee = (data) => (
-    <Grid container item direction='row' key={data.employeeId} style={{gridItemStyle,display:'flex',flexDirection: 'row',}}>
-        <Card>
-        <CardContent>
-          <Typography>{data.fullName}</Typography>
-          <Typography>{data.firstName + ' ' + data.middleName + ' ' + data.lastName}</Typography>
-          <Typography variant="subtitle2">
-            {data.designationGrade + ' ' + data.designation}
-          </Typography>
-          <Typography variant="caption">Employee ID: {data.employeeId}</Typography>
-        </CardContent>
-        </Card>
-      
-    </Grid>
-  );
   const handleManagerClick = (employeeId) => {
     // Call the API to get manager details
     const payload = {
       employeeId: employeeId,
-      companyId: 'COMP22',
+      companyId:(user?.companyID)?user?.companyID:''
     };
     let config = {
       method: 'post',
@@ -184,7 +87,7 @@ const OrganizationChart = () => {
       .request(config)
       .then((response) => {
         console.log(response.data.data);
-        emp = response?.data?.data
+        emp = response?.data?.data;
         setEmp(emp);
         setSelectedManager(employeeId);
         const employees =
@@ -208,75 +111,200 @@ const OrganizationChart = () => {
         employeeId: underling.employeeId,
       })) || [];
 
-
     console.log(allData, 'final');
     console.log(Employees, 'Employees');
     console.log(emp, 'emp');
   };
-  const renderManager = (manager) => (
-    <Grid
-      container
-      direction="row"
-      spacing={2}
-      key={manager.employeeId}
-      style={{
-        ...gridItemStyle,
-        display: selectedManager === manager.employeeId || !selectedManager ? 'flex' : 'none',
-        flexDirection: 'row',
-      }}
-    >
-      <Grid item>
-        {selectedManager && (
-          <Button onClick={() => setSelectedManager(null)} style={{ marginBottom: 16 }}>
-            <Icon icon="icon-park:back" />
-            Back
-          </Button>
-        )}
-        <Card onClick={() => handleManagerClick(manager.employeeId)}>
-          <CardContent>
-            <Typography>
-              {manager.firstName + ' ' + manager.middleName + ' ' + manager.lastName}
-            </Typography>
-            <Typography variant="subtitle2">
-              {manager.designationGrade + ' ' + manager.designation}
-            </Typography>
-            <Typography variant="caption">Employee ID: {manager.employeeId}</Typography>
-          </CardContent>
-        </Card>
-        {selectedManager === manager.employeeId && (
-          <div style={{ marginTop: 16 }}>
-            <Grid container item direction="row" spacing={2} style={{ flexDirection: 'row' }}>
-              {/* {manager.children.map(renderEmployee)} */}
-              {!allData?.length && <Typography variant="subtitle1" style={{marginLeft:'20px',padding:'10px'}}>No Team Members</Typography>}
-              {allData && allData.map((Und) => renderEmployee(Und))}
-              {console.log(manager, 'manaaaa')}
-            </Grid>
-          </div>
-        )}
-      </Grid>
-    </Grid>
-  );
 
   console.log();
   return (
-    <div>
-      <Card onClick={() => setSelectedManager('CEO')} style={ceoCardStyle}>
-        <CardContent>
-          {details &&
-            details.map((detail) => (
-              <div key={detail.employeeId}>
-                <Typography>{detail.fullName}</Typography>
-                <Typography variant="subtitle2">{detail.combinedDesignation}</Typography>
-                <Typography variant="caption">Employee ID: {detail.employeeId}</Typography>
-              </div>
+    <>
+      <Grid container style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Grid item style={{ width: '33%' }}>
+          <Typography
+            variant="subtitle1"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              color: '#3B82F6',
+            }}
+          >
+            CEO
+          </Typography>
+          <Card
+            style={{
+              width: '80%',
+              margin: '1%',
+              borderRadius: '30px',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              height: '13%',
+              padding: '10px',
+            }}
+            onClick={() => setSelectedManager('CEO')}
+          >
+            <Grid style={{ width: '30%' }}>
+              <img
+                src={
+                  details?.profilePicture
+                    ? baseImageUrl + details?.profilePicture
+                    : `https://ui-avatars.com/api/?name=${details?.firstName}`
+                }
+                // alt="NO Image"
+                style={{
+                  height: '50px',
+                  width: '50px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  objectPosition: 'center center',
+                  marginLeft: '10px',
+                  marginTop: '10px',
+                }}
+              />
+            </Grid>
+            <Grid style={{ width: '70%' }}>
+              {details &&
+                details.map((detail) => (
+                  <Grid key={detail.employeeId}>
+                    <Typography>{detail?.fullName}</Typography>
+                    <Typography variant="subtitle2">{detail?.combinedDesignation}</Typography>
+                    <Typography variant="caption">Employee ID: {detail?.employeeId}</Typography>
+                  </Grid>
+                ))}
+            </Grid>
+          </Card>
+        </Grid>
+        <Grid item style={{ width: '33%' }}>
+          <Typography
+            variant="subtitle1"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              color: '#3B82F6',
+            }}
+          >
+            Manager
+          </Typography>
+          {Under &&
+            Under.map((manager) => (
+              <Card
+                key={manager.employeeId}
+                style={{
+                  width: '80%',
+                  margin: '1%',
+                  borderRadius: '30px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  height: '13%',
+                  padding: '10px',
+                }}
+              >
+                <Grid style={{ width: '30%' }}>
+                  <img
+                    src={
+                      manager?.profilePicture
+                        ? baseImageUrl + manager?.profilePicture
+                        : `https://ui-avatars.com/api/?name=${manager?.firstName}`
+                    }
+                    // alt="NO Image"
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      objectPosition: 'center center',
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  />
+                </Grid>
+                <Grid
+                  style={{ width: '70%' }}
+                  onClick={() => handleManagerClick(manager?.employeeId)}
+                >
+                  <Typography>
+                    {manager.firstName + ' ' + manager.middleName + ' ' + manager.lastName}
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    {manager.designationGrade + ' ' + manager.designation}
+                  </Typography>
+                  <Typography variant="caption">Employee ID: {manager?.employeeId}</Typography>
+                </Grid>
+              </Card>
             ))}
-        </CardContent>
-      </Card>
-      <Grid container spacing={2} style={gridContainerStyle}>
-        {/*  {orgDatas.underlings.map(renderManager)} */}
-        {Under && Under.map((Und) => renderManager(Und))}
+        </Grid>
+        <Grid item style={{ width: '33%' }}>
+          <Typography
+            variant="subtitle1"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              color: '#3B82F6',
+            }}
+          >
+            Employees
+          </Typography>
+          {!allData?.length && !selectedManager && (
+    <Typography variant="subtitle1" style={{ marginLeft: '20px', padding: '10px' }}>
+      Select a manager to see Employees
+    </Typography>
+  )}
+          {!allData?.length && selectedManager && (
+            <Typography variant="subtitle1" style={{ marginLeft: '20px', padding: '10px' }}>
+              No Team Members
+            </Typography>
+          )}
+          {allData &&
+            allData.map((allData) => (
+              <Card
+                style={{
+                  width: '80%',
+                  margin: '1%',
+                  borderRadius: '30px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  height: '100px',
+                  padding: '10px',
+                }}
+                onClick={() => setSelectedManager('CEO')}
+              >
+                <Grid style={{ width: '30%' }}>
+                  <img
+                    src={
+                      allData?.profilePicture
+                        ? baseImageUrl + allData.profilePicture
+                        : `https://ui-avatars.com/api/?name=${allData?.firstName}`
+                    }
+                    // alt="NO Image"
+                    style={{
+                      height: '50px',
+                      width: '50px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      objectPosition: 'center center',
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  />
+                </Grid>
+                <Grid style={{ width: '70%' }}>
+                  <Grid key={allData.employeeId}>
+                    <Typography>{allData?.fullName}</Typography>
+                    <Typography variant="subtitle2">{allData?.combinedDesignation}</Typography>
+                    <Typography variant="caption">Employee ID: {allData?.employeeId}</Typography>
+                  </Grid>
+                </Grid>
+              </Card>
+            ))}
+        </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 

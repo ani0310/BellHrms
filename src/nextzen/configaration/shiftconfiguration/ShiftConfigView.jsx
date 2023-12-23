@@ -90,7 +90,7 @@ export default function ShiftConfigView({currentUser}) {
   const [startTime, setStartTime] = useState(dayjs('2022-04-17T15:30')); // State for Start Time
   const [endTime, setEndTime] = useState(dayjs('2022-04-17T15:30'));
   const actions = [
-    { name: 'Edit', icon: 'hh', path: 'jjj', type: 'edit' },
+    { name: 'Edit', icon: 'solar:pen-bold', path: 'jjj', type: 'edit' },
     // { name: 'Delete', icon: 'hh', path: 'jjj' },
   ];
 
